@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recettes pour une semaine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #f9f9f9;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .recipe {
+            display: none;
+            margin-bottom: 30px;
+        }
+        .visible {
+            display: block;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Recettes pour une semaine</h1>
+    </header>
+    <div class="container">
+        <select id="day-select" onchange="showRecipe()">
+            <option value="">Sélectionnez un jour</option>
+            <option value="lundi">Lundi</option>
+            <option value="mardi">Mardi</option>
+            <option value="mercredi">Mercredi</option>
+            <option value="jeudi">Jeudi</option>
+            <option value="vendredi">Vendredi</option>
+            <option value="samedi">Samedi</option>
+            <option value="dimanche">Dimanche</option>
+        </select>
+
+        <div id="lundi" class="recipe">
+            <h2>Lundi: Salade de quinoa</h2>
+            <h3>Ingrédients:</h3>
+            <ul>
+                <li>200g de quinoa</li>
+                <li>1 concombre</li>
+                <li>2 tomates</li>
+                <li>1 oignon rouge</li>
+                <li>100g de feta</li>
+                <li>Huile d'olive</li>
+                <li>Jus de citron</li>
+                <li>Sel et poivre</li>
+            </ul>
+            <h3>Étapes:</h3>
+            <ul>
+                <li>Rincer le quinoa et le cuire selon les instructions du paquet.</li>
+                <li>Couper le concombre, les tomates et l'oignon rouge en petits morceaux.</li>
+                <li>Mélanger les légumes avec le quinoa cuit.</li>
+                <li>Ajouter la feta émiettée.</li>
+                <li>Assaisonner avec de l'huile d'olive, du jus de citron, du sel et du poivre.</li>
+            </ul>
+        </div>
+
+        <div id="mardi" class="recipe">
+            <h2>Mardi: Poulet grillé aux légumes</h2>
+            <h3>Ingrédients:</h3>
+            <ul>
+                <li>2 blancs de poulet</li>
+                <li>1 courgette</li>
+                <li>1 poivron rouge</li>
+                <li>1 poivron jaune</li>
+                <li>1 oignon</li>
+                <li>Huile d'olive</li>
+                <li>Herbes de Provence</li>
+                <li>Sel et poivre</li>
+            </ul>
+            <h3>Étapes:</h3>
+            <ul>
+                <li>Préchauffer le grill.</li>
+                <li>Couper les légumes en morceaux.</li>
+                <li>Badigeonner les blancs de poulet et les légumes d'huile d'olive.</li>
+                <li>Assaisonner avec des herbes de Provence, du sel et du poivre.</li>
+                <li>Griller le poulet et les légumes jusqu'à ce qu'ils soient cuits.</li>
+            </ul>
+        </div>
+
+        <div id="mercredi" class="recipe">
+            <h2>Mercredi: Spaghetti aux tomates cerises</h2>
+            <h3>Ingrédients:</h3>
+            <ul>
+                <li>250g de spaghetti</li>
+                <li>250g de tomates cerises</li>
+                <li>2 gousses d'ail</li>
+                <li>Huile d'olive</li>
+                <li>Basilic frais</li>
+                <li>Sel et poivre</li>
+            </ul>
+            <h3>Étapes:</h3>
+            <ul>
+                <li>Faire cuire les spaghetti selon les instructions du paquet.</li>
+                <li>Faire chauffer de l'huile d'olive dans une poêle et y faire revenir l'ail émincé.</li>
+                <li>Ajouter les tomates cerises coupées en deux et faire cuire jusqu'à ce qu'elles ramollissent.</li>
+                <li>Ajouter les spaghetti cuits dans la poêle, mélanger avec les tomates cerises et l'ail.</li>
+                <li>Assaisonner avec du basilic frais, du sel et du poivre.</li>
+            </ul>
+        </div>
+
+        <!-- Ajouter des div pour les autres jours de la semaine -->
+
+        <button onclick="showAllIngredients()">Voir les ingrédients de la semaine</button>
+        <ul id="all-ingredients-list"></ul>
+    </div>
+
+    <script>
+        function showRecipe() {
+            var select
+            var select = document.getElementById('day-select');
+            var recipes = document.querySelectorAll('.recipe');
+
+            recipes.forEach(recipe => {
+                recipe.classList.remove('visible');
+            });
+
+            var selectedDay = select.value;
+            if (selectedDay) {
+                document.getElementById(selectedDay).classList.add('visible');
+            }
+        }
+
+        function showAllIngredients() {
+            var recipes = document.querySelectorAll('.recipe');
+            var allIngredientsList = document.getElementById('all-ingredients-list');
+            var ingredients = [];
+
+            recipes.forEach(recipe => {
+                var recipeIngredients = recipe.querySelectorAll('ul li');
+                recipeIngredients.forEach(ingredient => {
+                    ingredients.push(ingredient.textContent.trim());
+                });
+            });
+
+            // Remove duplicate ingredients
+            var uniqueIngredients = Array.from(new Set(ingredients));
+
+            // Clear previous ingredients list
+            allIngredientsList.innerHTML = '';
+
+            // Display unique ingredients
+            uniqueIngredients.forEach(ingredient => {
+                var li = document.createElement('li');
+                li.textContent = ingredient;
+                allIngredientsList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
